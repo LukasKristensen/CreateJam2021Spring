@@ -11,41 +11,49 @@ public class Drinker : MonoBehaviour
 	public float distanceToPlayer;
 	public PlayerController pc;
 	public UnitUI ui;
+	public GameManager gm;
 
 	// Start is called before the first frame update
 	void Start()
 	{
-//  m_Material = GetComponent<Renderer>().material;
+		//  m_Material = GetComponent<Renderer>().material;
 		ui = GetComponent<UnitUI>();
 		pc = playerTransform.GetComponent<PlayerController>();
+
 	}
 
 	// Update is called once per frame
 	void Update()
 	{
-		distanceToPlayer = Vector3.Distance(playerTransform.position, transform.position);
-		timegone = timegone + Time.deltaTime;
-		if (thirsty)
-		{
-			if (distanceToPlayer < 1 && pc.target == this.transform && pc.drink.gameObject.activeInHierarchy)
+		
+			distanceToPlayer = Vector3.Distance(playerTransform.position, transform.position);
+			timegone = timegone + Time.deltaTime;
+			if (thirsty)
 			{
-// m_Material.color = Color.green;
-				thirsty = false;
-				timegone = 0;
-				pc.drink.gameObject.SetActive(false);
-				ui.patience = 3;
+				if (timegone > 15)
+				{
+					ui.patience = 1;
+				}
+				if (distanceToPlayer < 1 && pc.target == this.transform && pc.drink.gameObject.activeInHierarchy)
+				{
+					// m_Material.color = Color.green;
+					thirsty = false;
+					timegone = 0;
+					pc.drink.gameObject.SetActive(false);
+					ui.patience = 3;
+
+				}
 
 			}
-
-		}
-		else
-		{
-			if (timegone > 7)
+			else
 			{
-				ui.patience = 1;
-// m_Material.color = Color.red;
-				thirsty = true;
+				if (timegone > 7)
+				{
+					ui.patience = 2;
+					// m_Material.color = Color.red;
+					thirsty = true;
+
+				}
 			}
 		}
-	}
-}
+	} 

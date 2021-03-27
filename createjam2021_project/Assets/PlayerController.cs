@@ -7,52 +7,64 @@ public class PlayerController : MonoBehaviour
 {
 	public Camera cam;
 	public NavMeshAgent agent;
-	public Transform target;
+	public Transform target = null;
 	public Transform hands;
 	public Transform drink;
 	public Transform food;
 	public float dist;
+	public GameManager gm;
 
+
+	void Start()
+	{
+		gm = FindObjectOfType<GameManager>();
+	}
 	// Update is called once per frame
 	void Update()
 	{
-		if (Input.GetMouseButton(1))
-		{
-			Ray ray = cam.ScreenPointToRay(Input.mousePosition);
-			RaycastHit hit;
+		//if (Input.GetMouseButton(1))
+		//{
+		//Ray ray = cam.ScreenPointToRay(Input.mousePosition);
+		//RaycastHit hit;
 
-			if (Physics.Raycast(ray, out hit))
-			{
-				// Move character
-				agent.SetDestination(hit.point);
-			}
-		}
-		if (Input.GetMouseButton(0))
-		{
-			Ray ray = cam.ScreenPointToRay(Input.mousePosition);
-			RaycastHit hit;
+		//if (Physics.Raycast(ray, out hit))
+		//{
+		// Move character
+		//agent.SetDestination(hit.point);
+		//}
+		//}
 
-			if (Physics.Raycast(ray, out hit))
+			if (Input.GetMouseButton(1))
 			{
-				// Move character
-				dist = Vector3.Distance(hit.transform.position, transform.position);
-				if (dist < 1)
+				Ray ray = cam.ScreenPointToRay(Input.mousePosition);
+				RaycastHit hit;
+
+				if (Physics.Raycast(ray, out hit))
 				{
-					print("Hit something" + hit.transform.name);
+					// Move character
+
+					//if (dist < 1)
+					//{
 					target = hit.transform;
-					if (target.name == "FoodStation")
-					{
-						food.gameObject.SetActive(true);
-						drink.gameObject.SetActive(false);
-					}
-					else if (target.name == "DrinkStation")
-					{
-						drink.gameObject.SetActive(true);
-						food.gameObject.SetActive(false);
-					}
+					agent.SetDestination(hit.point);
+					//}
+				}
+			}
+			if (target != null)
+			{
+
+				dist = Vector3.Distance(target.transform.position, transform.position);
+
+				if (target.name == "FoodStation" && dist < 2)
+				{
+					food.gameObject.SetActive(true);
+					drink.gameObject.SetActive(false);
+				}
+				else if (target.name == "DrinkStation" && dist < 2)
+				{
+					drink.gameObject.SetActive(true);
+					food.gameObject.SetActive(false);
 				}
 			}
 		}
-
 	}
-}

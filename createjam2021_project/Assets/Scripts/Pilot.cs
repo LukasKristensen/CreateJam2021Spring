@@ -10,12 +10,16 @@ public class Pilot : MonoBehaviour
 	public Transform playerTransform;
 	public float distanceToPlayer;
 	public PlayerController pc;
+	public GameManager gm;
+	public GameObject awake;
+	public GameObject tired;
+	public GameObject sleep;
 
 	// Start is called before the first frame update
 	void Start()
     {
 		m_Material = GetComponent<Renderer>().material;
-
+		gm = FindObjectOfType<GameManager>();
 	}
 
     // Update is called once per frame
@@ -26,16 +30,20 @@ public class Pilot : MonoBehaviour
 		if (sleeping)
 		{
 			if (distanceToPlayer < 1 && pc.target == this.transform) { 
-			m_Material.color = Color.green;
-			sleeping = false;
+				sleeping = false;
 				timegone = 0;
+				sleep.SetActive(false);
+				awake.SetActive(true);
 			}
 		}
 		else {
-			if (timegone>6) {
-			
-			m_Material.color = Color.red;
-			sleeping = true;
+			if (timegone > 13) {
+				sleeping = true;
+				sleep.SetActive(true);
+				tired.SetActive(false);
+			} else if (timegone > 6) {
+				awake.SetActive(false);
+				tired.SetActive(true);
 			}
 		}
     }

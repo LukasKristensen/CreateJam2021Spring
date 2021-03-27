@@ -6,9 +6,9 @@ public class HotSpots : MonoBehaviour
 {
     public bool[] hotspotsReady;
     public int[,] coordinates = {
-               { -7 , -3 , -15 , } ,
-               { -14 , -3 , -15 , } ,
-               { -7 , -3 , -7 , } ,
+               { -13,-3,-15,} ,
+               { -7,-3,-15, } ,
+               { -13,-3,-8, } ,
              };
 
 
