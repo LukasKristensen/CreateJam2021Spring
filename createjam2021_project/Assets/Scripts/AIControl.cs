@@ -33,7 +33,7 @@ public class AIControl : MonoBehaviour
     void SearchHotspot()
     {
         System.Random random = new System.Random();
-        int randomNumber = random.Next(0, 3);
+        int randomNumber = random.Next(0, 6);
 
         if (HotS.hotspotsReady[randomNumber])
         {

@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class Pilot : MonoBehaviour
 { 
-	public Material m_Material;
 	public float timegone = 0;
 	public bool sleeping = false;
 	public Transform playerTransform;
@@ -18,7 +17,6 @@ public class Pilot : MonoBehaviour
 	// Start is called before the first frame update
 	void Start()
     {
-		m_Material = GetComponent<Renderer>().material;
 		gm = FindObjectOfType<GameManager>();
 	}
 

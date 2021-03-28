@@ -2,21 +2,22 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class PowerGuy : MonoBehaviour
 {
-	public Material m_Material;
 	public float timegone = 0;
 	public bool hungry = false;
 	public Transform playerTransform;
 	public float distanceToPlayer;
 	public PlayerController pc;
 	public GameManager gm;
+	public Animator animator;
 
 	// Start is called before the first frame update
 	void Start()
 	{
-		m_Material = GetComponent<Renderer>().material;
 		gm = FindObjectOfType<GameManager>();
+		animator = GetComponent<Animator>();
 	}
 
 	// Update is called once per frame
@@ -28,7 +29,7 @@ public class PowerGuy : MonoBehaviour
 			{
 				if (distanceToPlayer < 1 && pc.target == this.transform && pc.food.gameObject.activeInHierarchy)
 				{
-					m_Material.color = Color.green;
+					animator.SetBool("tired",false);
 					hungry = false;
 					timegone = 0;
 					pc.food.gameObject.SetActive(false);
@@ -37,11 +38,10 @@ public class PowerGuy : MonoBehaviour
 			}
 			else
 			{
-				if (timegone > 7)
+				if (timegone > 11)
 				{
-
-					m_Material.color = Color.red;
-					hungry = true;
+				animator.SetBool("tired", true);
+				hungry = true;
 				}
 			}
 		}

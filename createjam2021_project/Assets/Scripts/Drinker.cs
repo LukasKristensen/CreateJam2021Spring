@@ -12,6 +12,7 @@ public class Drinker : MonoBehaviour
 	public PlayerController pc;
 	public UnitUI ui;
 	public GameManager gm;
+	public int impatience = 15;
 
 	// Start is called before the first frame update
 	void Start()
@@ -30,7 +31,7 @@ public class Drinker : MonoBehaviour
 			timegone = timegone + Time.deltaTime;
 			if (thirsty)
 			{
-				if (timegone > 15)
+				if (timegone > impatience)
 				{
 					ui.patience = 1;
 				}
